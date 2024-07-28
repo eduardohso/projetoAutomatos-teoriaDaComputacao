@@ -1,0 +1,84 @@
+Autômatos Finitos Determinísticos (AFD)
+========================================
+AFD 1:
+Estados: q0, q1, q2
+Alfabeto: a, b
+Transições: q0,a,q1; q1,b,q2; q2,a,q0
+Estado Inicial: q0
+Estados de Aceitação: q2
+Palavras: a, ab, aba
+
+AFD 2:
+Estados: s0, s1, s2, s3
+Alfabeto: 0, 1
+Transições: s0,0,s1; s1,0,s2; s2,1,s3; s3,0,s0
+Estado Inicial: s0
+Estados de Aceitação: s3
+Palavras: 00, 001, 0010
+
+AFD 3:
+Estados: p0, p1, p2
+Alfabeto: x, y
+Transições: p0,x,p1; p1,y,p2; p2,x,p0
+Estado Inicial: p0
+Estados de Aceitação: p2
+Palavras: x, xy, xyx
+
+AFD 4:
+Estados: t0, t1
+Alfabeto: a, b
+Transições: t0,a,t1; t1,b,t0
+Estado Inicial: t0
+Estados de Aceitação: t1
+Palavras: ab, a, abb
+
+AFD 5:
+Estados: r0, r1, r2, r3
+Alfabeto: 1, 2
+Transições: r0,1,r1; r1,2,r2; r2,1,r3; r3,2,r0
+Estado Inicial: r0
+Estados de Aceitação: r3
+Palavras: 12, 121, 1212
+
+Autômatos Finitos Não-determinísticos (AFN)
+========================================
+AFN 1:
+Estados: q0, q1, q2
+Alfabeto: a, b
+Transições: q0,a,q0; q0,a,q1; q1,b,q2; q2,a,q0
+Estado Inicial: q0
+Estados de Aceitação: q2
+Palavras: a, ab, aba
+
+AFN 2:
+Estados: s0, s1, s2, s3
+Alfabeto: 0, 1
+Transições: s0,0,s1; s0,0,s2; s1,1,s3; s2,1,s3; s3,0,s0
+Estado Inicial: s0
+Estados de Aceitação: s3
+Palavras: 00, 001, 010
+
+AFN 3:
+Estados: p0, p1, p2
+Alfabeto: x, y
+Transições: p0,x,p1; p0,x,p2; p1,y,p0; p2,y,p1
+Estado Inicial: p0
+Estados de Aceitação: p2
+Palavras: x, xy, xyy
+
+AFN 4:
+Estados: t0, t1
+Alfabeto: a, b
+Transições: t0,a,t1; t0,b,t1; t1,a,t0; t1,b,t0
+Estado Inicial: t0
+Estados de Aceitação: t1
+Palavras: a, b, aa
+
+AFN 5:
+Estados: r0, r1, r2, r3
+Alfabeto: 1, 2
+Transições: r0,1,r1; r0,1,r2; r1,2,r3; r2,2,r3; r3,1,r0
+Estado Inicial: r0
+Estados de Aceitação: r3
+Palavras: 12, 112, 121
+

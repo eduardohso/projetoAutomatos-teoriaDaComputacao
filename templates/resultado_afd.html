@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container result-container">
+        <h1>Resultado</h1>
+
+        <!-- Seção para visualização do AFD inserido -->
+        <div class="section">
+            <h2>Visualização do AFD inserido:</h2>
+            <div class="row">
+                <div class="column">
+                    <img src="{{ url_for('static', filename='visualizacao/afd.png') }}" alt="AFD">
+                </div>
+                <div class="column">
+                    <div id="resultado">
+                        <p><strong>Estados:</strong> {{ afd.estados }}</p>
+                        <p><strong>Alfabeto:</strong> {{ afd.alfabeto }}</p>
+                        <p><strong>Transições:</strong></p>
+                        <ul>
+                            {% for key, value in afd.transicoes.items() %}
+                                <li>{{ key }} &rarr; {{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p><strong>Estado Inicial:</strong> {{ afd.estado_inicial }}</p>
+                        <p><strong>Estados de Aceitação:</strong> {{ afd.estados_aceitacao }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção para simulação de aceitação -->
+        <div class="section">
+            <h2>Simulação de Aceitação:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Palavra testada</th>
+                        <th>Resultado AFD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for palavra, resultado in resultados_afd.items() %}
+                    <tr>
+                        <td>{{ palavra }}</td>
+                        <td><span class="{{ 'true' if resultado else 'false' }}">{{ resultado }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Seção para resultado da minimização do AFD -->
+        <div class="section">
+            <h2>Resultado da Minimização do AFD:</h2>
+            <div class="row">
+                <div class="column">
+                    <img src="{{ url_for('static', filename='visualizacao/afd_minimizado.png') }}" alt="AFD Minimizado">
+                </div>
+                <div class="column">
+                    <div id="resultado">
+                        <p><strong>Estados:</strong> {{ afd_minimizado.estados }}</p>
+                        <p><strong>Alfabeto:</strong> {{ afd_minimizado.alfabeto }}</p>
+                        <p><strong>Transições:</strong></p>
+                        <ul>
+                            {% for key, value in afd_minimizado.transicoes.items() %}
+                                <li>{{ key }} &rarr; {{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p><strong>Estado Inicial:</strong> {{ afd_minimizado.estado_inicial }}</p>
+                        <p><strong>Estados de Aceitação:</strong> {{ afd_minimizado.estados_aceitacao }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão para voltar à página inicial -->
+        <div class="section">
+            <a href="{{ url_for('index') }}" class="back-button">Voltar</a>
+        </div>
+    </div>
+</body>
+</html>
