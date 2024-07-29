@@ -82,3 +82,10 @@ Estado Inicial: r0
 Estados de Aceitação: r3
 Palavras: 12, 112, 121
 
+AFN 6:
+Estados: q1, q2, q3, q4
+Alfabeto: a, b
+Transições: q1,a,q2; q1,a,q3; q2,a,q4; q2,b,q2; q3,a,q3; q3,b,q2; q4,a,q3; q4,b,q2
+Estado Inicial: q1
+Estados de Aceitação: q3, q4
+Palavras: a, b, ab, aab, abb, bba

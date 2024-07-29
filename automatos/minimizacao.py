@@ -1,23 +1,27 @@
 from automatos.afd import AFD
+from automatos.conversao import completar_afd, converter_estados_legiveis
 
-def minimizar_afd(afd):
+def minimizar_afd(afd: AFD) -> AFD:
     """
-    Minimiza um autômato finito determinístico (AFD) usando o algoritmo de partição.
+    Minimiza o AFD dado usando o algoritmo de minimização de estados.
 
     Args:
-        afd (AFD): O autômato finito determinístico a ser minimizado.
+        afd (AFD): O AFD a ser minimizado.
 
     Returns:
-        AFD: O autômato finito determinístico minimizado.
+        AFD: O AFD minimizado.
     """
-    # Inicializa as partições
+    afd = completar_afd(afd)  # Completa o AFD antes de minimizar
+
+    # Inicializa as partições P e o conjunto de trabalho W
     P = [afd.estados_aceitacao, afd.estados - afd.estados_aceitacao]
     W = [afd.estados_aceitacao.copy()]
 
+    # Processa as partições até que W esteja vazio
     while W:
         A = W.pop()
         for simbolo in afd.alfabeto:
-            # Conjunto de estados cujas transições com o símbolo atual levam a estados em A
+            # Conjunto de estados X que se movem para A sob o símbolo atual
             X = {estado for estado in afd.estados if afd.transicoes.get((estado, simbolo)) in A}
             for Y in P[:]:
                 interseccao = X & Y
@@ -36,12 +40,12 @@ def minimizar_afd(afd):
                         else:
                             W.append(diferenca)
 
-    # Cria os novos estados minimizados
+    # Cria novos estados minimizados a partir das partições finais
     estados_minimizados = {frozenset(g) for g in P}
     estado_inicial_minimizado = next(frozenset(g) for g in P if afd.estado_inicial in g)
     estados_aceitacao_minimizados = {frozenset(g) for g in P if g & afd.estados_aceitacao}
 
-    # Cria as novas transições minimizadas
+    # Cria as transições minimizadas
     transicoes_minimizadas = {}
     for grupo in estados_minimizados:
         for estado in grupo:
