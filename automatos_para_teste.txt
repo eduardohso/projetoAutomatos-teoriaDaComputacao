@@ -89,3 +89,11 @@ Transições: q1,a,q2; q1,a,q3; q2,a,q4; q2,b,q2; q3,a,q3; q3,b,q2; q4,a,q3; q4,
 Estado Inicial: q1
 Estados de Aceitação: q3, q4
 Palavras: a, b, ab, aab, abb, bba
+
+AFN 7:
+Estados: A, B, C, D, E, F
+Alfabeto: a, b
+Transições: A,a,E; B,a,D; B,b,B; C,a,C; C,b,B; D,a,C; D,b,B; E,a,F; E,b,B; F,a,C; F,b,B
+Estado Inicial: A
+Estados de Aceitação: C, D, E, F
+Palavras: a, b, ab, aab, abb, bba
