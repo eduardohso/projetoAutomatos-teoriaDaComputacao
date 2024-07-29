@@ -21,7 +21,7 @@ pip install flask graphviz
 ### Instalação do Graphviz
 Além da biblioteca `graphviz` do Python, é necessário instalar o software Graphviz no seu sistema.
 
-- **Windows**: Baixe o instalador em https://graphviz.gitlab.io/_pages/Download/Download_windows.html e siga as instruções de instalação.
+- **Windows**: Baixe o instalador em https://graphviz.org/download/ e siga as instruções de instalação.
 - **Linux**: Use o gerenciador de pacotes da sua distribuição. Por exemplo, no Debian/Ubuntu, use:
   ```sh
   sudo apt-get install graphviz
