@@ -80,7 +80,7 @@ def processar_turing():
     estados = request.form['estados'].split(',')
     alfabeto_entrada = request.form['alfabeto_entrada'].split(',')
     alfabeto_fita = request.form['alfabeto_fita'].split(',')
-    simbolo_branco = request.form['simbolo_branco']
+    simbolo_vazio = request.form['simbolo_vazio']
     estado_inicial = request.form['estado_inicial']
     estados_finais = request.form['estados_finais'].split(',')
     transicoes_brutas = request.form['transicoes'].strip().split('\n')
@@ -97,12 +97,12 @@ def processar_turing():
     palavra_entrada = request.form['palavra_entrada']
 
     if tipo_problema == 'incremento_binario':
-        mt = MaquinaTuringIncrementoBinario(estados, alfabeto_entrada, alfabeto_fita, simbolo_branco, transicoes, estado_inicial, estados_finais)
+        mt = MaquinaTuringIncrementoBinario(estados, alfabeto_entrada, alfabeto_fita, simbolo_vazio, transicoes, estado_inicial, estados_finais)
         resultado, palavra_resultado = mt.executar(palavra_entrada)
         return render_template('maquinaTuring.html', resultado=resultado, palavra_resultado=palavra_resultado)
     
     elif tipo_problema == 'linguagem_par_a':
-        mt = MaquinaTuringLR(estados, alfabeto_entrada, alfabeto_fita, simbolo_branco, transicoes, estado_inicial, estados_finais)
+        mt = MaquinaTuringLR(estados, alfabeto_entrada, alfabeto_fita, simbolo_vazio, transicoes, estado_inicial, estados_finais)
         resultado, _ = mt.executar(palavra_entrada)
         return render_template('maquinaTuring.html', resultado=resultado)
 

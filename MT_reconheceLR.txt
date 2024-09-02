@@ -1,0 +1,30 @@
+Máquina de Turing Para Reconhecimento de Linguagem Regular - Linguagem com Número Par de a's.
+
+Estados: q0,q1,q_aceita,q_rejeita
+Alfabeto de Entrada: a,b
+Alfabeto da Fita: a,b,_
+Símbolo Vazio: _
+Estado Inicial: q0
+Estados Finais: q_aceita
+Transições:
+q0,a -> q1,a,>
+q0,b -> q0,b,>
+q1,a -> q0,a,>
+q1,b -> q1,b,>
+q0,_ -> q_aceita,_,N
+q1,_ -> q_rejeita,_,N
+
+----------------------------------------------------------------------------------------------------------
+
+incremento numero binário
+
+Estados: q0,q_aceita
+Alfabeto de Entrada: 0,1
+Alfabeto da Fita: 0,1,_
+Símbolo Branco: _
+Estado Inicial: q0
+Estados Finais: q_aceita
+Transições:
+q0,1 -> q0,0,<
+q0,0 -> q_aceita,1,N
+q0,_ -> q_aceita,1,N

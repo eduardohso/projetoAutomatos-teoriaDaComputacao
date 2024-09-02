@@ -1,0 +1,12 @@
+Máquina de Turing Para Incremento de Número Binário
+
+Estados: q0,q_aceita
+Alfabeto de Entrada: 0,1
+Alfabeto da Fita: 0,1,_
+Símbolo Branco: _
+Estado Inicial: q0
+Estados Finais: q_aceita
+Transições:
+q0,1 -> q0,0,<
+q0,0 -> q_aceita,1,N
+q0,_ -> q_aceita,1,N

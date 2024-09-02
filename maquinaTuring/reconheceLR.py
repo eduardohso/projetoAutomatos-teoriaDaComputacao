@@ -1,9 +1,9 @@
 class MaquinaTuringLR:
-    def __init__(self, estados, alfabetoEntrada, alfabetoFita, simboloBranco, transicoes, estadoInicial, estadosFinais):
+    def __init__(self, estados, alfabetoEntrada, alfabetoFita, simboloVazio, transicoes, estadoInicial, estadosFinais):
         self.estados = estados
         self.alfabetoEntrada = alfabetoEntrada
         self.alfabetoFita = alfabetoFita
-        self.simboloBranco = simboloBranco
+        self.simboloVazio = simboloVazio
         self.transicoes = transicoes
         self.estadoInicial = estadoInicial
         self.estadosFinais = estadosFinais
@@ -12,14 +12,14 @@ class MaquinaTuringLR:
         self.posicaoCabeca = 0
 
     def inicializarFita(self, palavraEntrada):
-        self.fita = list(palavraEntrada) + [self.simboloBranco] * (len(palavraEntrada) + 1)
+        self.fita = list(palavraEntrada) + [self.simboloVazio] * (len(palavraEntrada) + 1)
         self.posicaoCabeca = 0
 
     def expandirFitaSeNecessario(self):
         if self.posicaoCabeca == len(self.fita):
-            self.fita.append(self.simboloBranco)
+            self.fita.append(self.simboloVazio)
         elif self.posicaoCabeca < 0:
-            self.fita.insert(0, self.simboloBranco)
+            self.fita.insert(0, self.simboloVazio)
             self.posicaoCabeca = 0
 
     def passo(self):
@@ -48,6 +48,6 @@ class MaquinaTuringLR:
             self.passo()
 
         if self.estadoAtual in self.estadosFinais:
-            return "Sim", ''.join(self.fita).rstrip(self.simboloBranco)
+            return "Sim", ''.join(self.fita).rstrip(self.simboloVazio)
         else:
             return "Não", None

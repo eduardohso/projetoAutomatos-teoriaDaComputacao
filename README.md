@@ -150,7 +150,7 @@ projetoAutomatos-teoriaDaComputacao/
 ├── maquinaTuring/
 │   ├── __init__.py            # Inicializa o módulo da Máquina de Turing
 │   ├── incrementaBinario.py   # Implementa a função de incremento binário
-│   ├── reconheceLR.py         # Implementa a função de reconhecimento de linguagem regular
+│   └── reconheceLR.py         # Implementa a função de reconhecimento de linguagem regular
 │
 ├── static/
 │   ├── css/
@@ -168,6 +168,9 @@ projetoAutomatos-teoriaDaComputacao/
 │   ├── resultado_afd.html     # Página de resultados para AFD
 │   └── resultado.html         # Página de resultados para AFN e AFD
 │
+├── automatos_para_teste.txt   # Arquivo com alguns exemplos de automatos para teste
+├── MT_incrementoBinario.txt   # Arquivo de teste para a Máquina de Turing de incremento binário
+├── MT_reconheceLR.txt         # Arquivo de teste para a Máquina de Turing de reconhecimento de linguagem regular
 │
 └── README.md                  # Este arquivo
 ```
