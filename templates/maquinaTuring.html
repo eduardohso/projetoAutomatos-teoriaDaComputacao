@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquina de Turing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Máquina de Turing</h1>
+        <form id="turingForm" action="{{ url_for('processar_turing') }}" method="post" onsubmit="return validarFormulario()">
+            <div class="form-group">
+                <label for="tipo_problema">Escolha o tipo de problema:</label>
+                <select name="tipo_problema" id="tipo_problema" required>
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="incremento_binario">Incremento Binário</option>
+                    <option value="linguagem_par_a">Reconhecimento de Linguagem Regular (Número Par de 'a's)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="estados">Estados (separados por vírgula):</label>
+                <input type="text" id="estados" name="estados" required>
+            </div>
+            <div class="form-group">
+                <label for="alfabeto_entrada">Alfabeto de Entrada (separado por vírgula):</label>
+                <input type="text" id="alfabeto_entrada" name="alfabeto_entrada" required>
+            </div>
+            <div class="form-group">
+                <label for="alfabeto_fita">Alfabeto da Fita (separado por vírgula):</label>
+                <input type="text" id="alfabeto_fita" name="alfabeto_fita" required>
+            </div>
+            <div class="form-group">
+                <label for="simbolo_branco">Símbolo Branco:</label>
+                <input type="text" id="simbolo_branco" name="simbolo_branco" required>
+            </div>
+            <div class="form-group">
+                <label for="estado_inicial">Estado Inicial:</label>
+                <input type="text" id="estado_inicial" name="estado_inicial" required>
+            </div>
+            <div class="form-group">
+                <label for="estados_finais">Estados Finais (separados por vírgula):</label>
+                <input type="text" id="estados_finais" name="estados_finais" required>
+            </div>
+            <div class="form-group">
+                <label for="transicoes">Transições (formato: estado_atual,símbolo_lido -> novo_estado,símbolo_escrito,direção):</label>
+                <textarea id="transicoes" name="transicoes" oninput="autoExpand(this)" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="palavra_entrada">Palavra de Entrada:</label>
+                <input type="text" id="palavra_entrada" name="palavra_entrada" required>
+            </div>
+            <div class="buttons">
+                <input type="submit" value="Processar" class="button">
+                <a href="{{ url_for('index') }}" class="button back-button">Voltar</a>
+            </div>
+        </form>
+        {% if resultado %}
+            <h2>Resultado</h2>
+            <p>{{ resultado }}</p>
+            {% if palavra_resultado %}
+                <p>Número Incrementado: {{ palavra_resultado }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+    <script>
+        function autoExpand(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+        }
+
+        function validarFormulario() {
+            const form = document.getElementById('turingForm');
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+            for (let input of inputs) {
+                if (input.value.trim() === '') {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    input.focus();
+                    return false;
+                }
+            }
+
+            return true; // Permite o envio do formulário se tudo estiver OK
+        }
+    </script>
+</body>
+</html>

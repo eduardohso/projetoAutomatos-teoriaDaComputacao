@@ -3,9 +3,6 @@ class AFD:
         """
         Verifica se o AFD está normalizado. Um AFD está normalizado se todos os estados têm transições
         definidas para todos os símbolos do alfabeto.
-        
-        Returns:
-            bool: True se o AFD estiver normalizado, False caso contrário.
         """
         for estado in self.estados:
             for simbolo in self.alfabeto:

@@ -1,27 +1,15 @@
 from graphviz import Digraph
 
 def format_state(state):
-    """
-    Formata o estado para uma string legível.
     
-    Args:
-        state: O estado a ser formatado, pode ser uma string ou um frozenset.
-    
-    Returns:
-        str: O estado formatado.
-    """
+    # Formata o estado para uma string legível.
     if isinstance(state, frozenset):
         return "{" + ", ".join(sorted(format_state(s) for s in state)) + "}"
     return str(state)
 
 def visualizar_automato(automato, nome_arquivo):
-    """
-    Gera uma visualização de um autômato (AFN) e salva como um arquivo PNG.
     
-    Args:
-        automato: O autômato a ser visualizado.
-        nome_arquivo: O nome do arquivo onde a visualização será salva.
-    """
+    # Gera uma visualização de um autômato (AFN) e salva como um arquivo PNG.
     dot = Digraph()
 
     # Adicionar estados
@@ -47,13 +35,8 @@ def visualizar_automato(automato, nome_arquivo):
     dot.render(nome_arquivo, format='png', cleanup=True)
 
 def visualizar_afd(afd, filename):
-    """
-    Gera uma visualização de um AFD e salva como um arquivo PNG.
     
-    Args:
-        afd: O autômato finito determinístico a ser visualizado.
-        filename: O nome do arquivo onde a visualização será salva.
-    """
+    # Gera uma visualização de um AFD e salva como um arquivo PNG.
     dot = Digraph(comment='AFD')
 
     # Adicionar estados

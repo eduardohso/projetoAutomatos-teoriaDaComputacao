@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from automatos import receber_entrada_afn, receber_entrada_afd, converter_afn_para_afd, simular_afn, simular_afd, verificar_equivalencia, minimizar_afd, visualizar_automato, visualizar_afd, AFN, AFD, converter_estados_legiveis, estado_para_string
+from maquinaTuring import MaquinaTuringIncrementoBinario, MaquinaTuringLR
 
 app = Flask(__name__)
 
@@ -7,11 +8,18 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/automatos')
+def automatos():
+    return render_template('automatos.html')
+
+@app.route('/maquinaTuring')
+def maquina_turing():
+    return render_template('maquinaTuring.html')
 
 
-@app.route('/processar', methods=['POST'])
-def processar():
-    tipo = request.form.get('tipo')
+@app.route('/processar_automato', methods=['POST'])
+def processar_automato():
+    tipo = request.form.get('tipo').lower()
     estados = [estado.strip() for estado in request.form.get('estados').split(',')]
     alfabeto = [simbolo.strip() for simbolo in request.form.get('alfabeto').split(',')]
     transicoes_brutas = [transicao.strip() for transicao in request.form.get('transicoes').split(';') if transicao.strip()]
@@ -19,7 +27,6 @@ def processar():
     estados_aceitacao = [estado.strip() for estado in request.form.get('estados_aceitacao').split(',')]
     palavras = [palavra.strip() for palavra in request.form.get('palavras').split(',')]
 
-    # Constrói o dicionário de transições
     transicoes = {}
     for transicao in transicoes_brutas:
         partes = transicao.split(',')
@@ -46,7 +53,6 @@ def processar():
         afd = converter_estados_legiveis(afd)
         afd_minimizado = converter_estados_legiveis(afd_minimizado)
 
-        # Visualizar os automatos
         visualizar_automato(afn, 'static/visualizacao/afn')
         visualizar_afd(afd, 'static/visualizacao/afd')
         visualizar_afd(afd_minimizado, 'static/visualizacao/afd_minimizado')
@@ -62,11 +68,43 @@ def processar():
         afd = converter_estados_legiveis(afd)
         afd_minimizado = converter_estados_legiveis(afd_minimizado)
 
-        # Visualizar os automatos
         visualizar_afd(afd, 'static/visualizacao/afd')
         visualizar_afd(afd_minimizado, 'static/visualizacao/afd_minimizado')
 
         return render_template('resultado_afd.html', afd=afd.to_dict(), resultados_afd=resultados_afd, afd_minimizado=afd_minimizado.to_dict())
 
-if __name__ == '__main__':
+
+@app.route('/processar_turing', methods=['POST'])
+def processar_turing():
+    tipo_problema = request.form.get('tipo_problema')
+    estados = request.form['estados'].split(',')
+    alfabeto_entrada = request.form['alfabeto_entrada'].split(',')
+    alfabeto_fita = request.form['alfabeto_fita'].split(',')
+    simbolo_branco = request.form['simbolo_branco']
+    estado_inicial = request.form['estado_inicial']
+    estados_finais = request.form['estados_finais'].split(',')
+    transicoes_brutas = request.form['transicoes'].strip().split('\n')
+
+    transicoes = {}
+    for transicao in transicoes_brutas:
+        partes = transicao.split('->')
+        estado_simbolo = partes[0].strip()
+        novo_estado_simbolo_direcao = partes[1].strip().split(',')
+        transicoes[estado_simbolo] = (novo_estado_simbolo_direcao[0].strip(), 
+                                      novo_estado_simbolo_direcao[1].strip(), 
+                                      novo_estado_simbolo_direcao[2].strip())
+
+    palavra_entrada = request.form['palavra_entrada']
+
+    if tipo_problema == 'incremento_binario':
+        mt = MaquinaTuringIncrementoBinario(estados, alfabeto_entrada, alfabeto_fita, simbolo_branco, transicoes, estado_inicial, estados_finais)
+        resultado, palavra_resultado = mt.executar(palavra_entrada)
+        return render_template('maquinaTuring.html', resultado=resultado, palavra_resultado=palavra_resultado)
+    
+    elif tipo_problema == 'linguagem_par_a':
+        mt = MaquinaTuringLR(estados, alfabeto_entrada, alfabeto_fita, simbolo_branco, transicoes, estado_inicial, estados_finais)
+        resultado, _ = mt.executar(palavra_entrada)
+        return render_template('maquinaTuring.html', resultado=resultado)
+
+if __name__ == "__main__":
     app.run(debug=True)

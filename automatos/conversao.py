@@ -2,15 +2,8 @@ from automatos.afn import AFN
 from automatos.afd import AFD
 
 def completar_afd(afd: AFD) -> AFD:
-    """
-    Completa o AFD adicionando um estado neutro, se necessário, para garantir que todos os estados tenham transições definidas para cada símbolo do alfabeto.
-    
-    Args:
-        afd (AFD): O AFD a ser completado.
-    
-    Returns:
-        AFD: O AFD completado.
-    """
+
+    # Completa o AFD adicionando um estado neutro, se necessário, para garantir que todos os estados tenham transições definidas para cada símbolo do alfabeto.
     estado_neutro = 'estado_neutro'
     novos_estados = afd.estados | {estado_neutro}
     novas_transicoes = afd.transicoes.copy()
@@ -34,15 +27,8 @@ def completar_afd(afd: AFD) -> AFD:
     )
 
 def converter_afn_para_afd(afn: AFN) -> AFD:
-    """
-    Converte um AFN para um AFD equivalente.
-    
-    Args:
-        afn (AFN): O AFN a ser convertido.
-    
-    Returns:
-        AFD: O AFD convertido.
-    """
+
+    # Converte um AFN para um AFD equivalente.
     estados_dfa = set()
     transicoes_dfa = {}
     estados_aceitacao_dfa = set()
@@ -81,29 +67,15 @@ def converter_afn_para_afd(afn: AFN) -> AFD:
     return completar_afd(afd)
 
 def estado_para_string(estado):
-    """
-    Converte um estado em uma string legível.
-    
-    Args:
-        estado: O estado a ser convertido, pode ser uma string ou um frozenset.
-    
-    Returns:
-        str: O estado convertido em string.
-    """
+
+    # Converte um estado em uma string legível.
     if isinstance(estado, frozenset):
         return '{' + ', '.join(sorted(estado_para_string(sub_estado) for sub_estado in estado)) + '}'
     return str(estado)
 
 def converter_estados_legiveis(afd):
-    """
-    Converte os estados e transições do AFD para strings legíveis.
-    
-    Args:
-        afd (AFD): O AFD a ser convertido.
-    
-    Returns:
-        AFD: O AFD com estados e transições convertidos para strings legíveis.
-    """
+
+    # Converte os estados e transições do AFD para strings legíveis.
     afd.estados = [estado_para_string(s) for s in afd.estados]
     afd.transicoes = {(estado_para_string(k[0]), k[1]): estado_para_string(v) for k, v in afd.transicoes.items()}
     afd.estado_inicial = estado_para_string(afd.estado_inicial)

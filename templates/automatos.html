@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrada</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulador de Autômatos</h1>
+        <form action="{{ url_for('processar_automato') }}" method="post">
+            <input type="hidden" name="tipo" value="AFN">
+            <!-- Seleção do tipo de autômato -->
+            <div class="form-group">
+                <label for="tipo">Tipo de Autômato:</label>
+                <select id="tipo" name="tipo">
+                    <option value="afn">AFN</option>
+                    <option value="afd">AFD</option>
+                </select>
+            </div>
+            <!-- Campo para entrada dos estados -->
+            <div class="form-group">
+                <label for="estados">Estados (separados por vírgula):</label>
+                <input type="text" id="estados" name="estados" required>
+            </div>
+            <!-- Campo para entrada do alfabeto -->
+            <div class="form-group">
+                <label for="alfabeto">Alfabeto (separados por vírgula):</label>
+                <input type="text" id="alfabeto" name="alfabeto" required>
+            </div>
+            <!-- Campo para entrada das transições -->
+            <div class="form-group">
+                <label for="transicoes">Transições (formato: estado,símbolo,estado; use ';' para separar múltiplas transições):</label>
+                <input type="text" id="transicoes" name="transicoes" required>
+            </div>
+            <!-- Campo para entrada do estado inicial -->
+            <div class="form-group">
+                <label for="estado_inicial">Estado Inicial:</label>
+                <input type="text" id="estado_inicial" name="estado_inicial" required>
+            </div>
+            <!-- Campo para entrada dos estados de aceitação -->
+            <div class="form-group">
+                <label for="estados_aceitacao">Estados de Aceitação (separados por vírgula):</label>
+                <input type="text" id="estados_aceitacao" name="estados_aceitacao" required>
+            </div>
+            <!-- Campo para entrada das palavras para teste -->
+            <div class="form-group">
+                <label for="palavras">Palavras para Testar (separadas por vírgula):</label>
+                <input type="text" id="palavras" name="palavras" required>
+            </div>
+            <!-- Botões de submissão e voltar -->
+            <div class="buttons">
+                <input type="submit" value="Processar" class="button">
+                <a href="{{ url_for('index') }}" class="button back-button">Voltar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
