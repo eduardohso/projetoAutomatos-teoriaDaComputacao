@@ -27,18 +27,18 @@ def particionar_estados(afd: AFD, estado_neutro: str) -> list:
     P = [afd.estados_aceitacao, afd.estados - afd.estados_aceitacao]
     return [p - {estado_neutro} for p in P]
 
-def minimizarAfd(afd: AFD) -> AFD:
+def minimizar_afd(afd: AFD) -> AFD:
 
     # Minimiza o AFD dado usando o algoritmo de minimização de estados.
     estadoNeutro = "estadoNeutro"
     
     # Completa o AFD se necessário
-    if not afd.estaNormalizado():
+    if not afd.esta_normalizado():
         afd = completar_afd(afd)
     
     # Particiona os estados, excluindo o estadoNeutro
     gruposEstados = particionar_estados(afd, estadoNeutro)
-    estadosProcessar = [afd.estadosAceitacao.copy()]
+    estadosProcessar = [afd.estados_aceitacao.copy()]
 
     # Processo de minimização
     while estadosProcessar:
@@ -67,8 +67,8 @@ def minimizarAfd(afd: AFD) -> AFD:
     
     # Criar os estados e transições minimizadas
     estadosMinimizados = {frozenset(grupo) for grupo in gruposEstados}
-    estadoInicialMinimizado = next(frozenset(grupo) for grupo in estadosMinimizados if afd.estadoInicial in grupo)
-    estadosAceitacaoMinimizados = {frozenset(grupo) for grupo in estadosMinimizados if grupo & afd.estadosAceitacao}
+    estadoInicialMinimizado = next(frozenset(grupo) for grupo in estadosMinimizados if afd.estado_inicial in grupo)
+    estadosAceitacaoMinimizados = {frozenset(grupo) for grupo in estadosMinimizados if grupo & afd.estados_aceitacao}
 
     transicoesMinimizadas = {}
     for grupo in estadosMinimizados:
@@ -86,8 +86,8 @@ def minimizarAfd(afd: AFD) -> AFD:
         estados=estadosMinimizados,
         alfabeto=afd.alfabeto,
         transicoes=transicoesMinimizadas,
-        estadoInicial=estadoInicialMinimizado,
-        estadosAceitacao=estadosAceitacaoMinimizados
+        estado_inicial=estadoInicialMinimizado,
+        estados_aceitacao=estadosAceitacaoMinimizados
     )
     
     # Aplicar limpeza final ao AFD minimizado

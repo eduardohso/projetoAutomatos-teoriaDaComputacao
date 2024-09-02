@@ -108,12 +108,15 @@ A Máquina de Turing implementada neste projeto é capaz de resolver problemas c
 Para o problema de incremento de número binário:
 
 ```
-Estados: q0, q1, qAceita
+Estados: q0,q_aceita
 Alfabeto de Entrada: 0, 1
 Alfabeto da Fita: 0, 1, _
-Transições: q0,1 -> q0,1,L; q0,0 -> q1,1,S; q0,_ -> q1,1,S; q1,1 -> q1,0,L; q1,0 -> qAceita,1,S; q1,_ -> qAceita,1,S
+Transições: 
+   q0,1 -> q0,0,<
+   q0,0 -> q_aceita,1,N
+   q0,_ -> q_aceita,1,N
 Estado Inicial: q0
-Estados de Aceitação: qAceita
+Estados de Aceitação: q_aceita
 Símbolo Vazio: _
 Palavra de Entrada: 011
 ```
